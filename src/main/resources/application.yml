@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+  kafka:
+    topic-prefix: ssa
+    consumer:
+      group-id: ssa-consumer-group-local
+      client-id: ssa-consumer-client
+    template:
+      default-topic: ssa-dev
+    bootstrap-servers: localhost:9092
+
+server:
+  port: 4446
+
