@@ -10,7 +10,7 @@ import org.springframework.kafka.retrytopic.RetryTopicNamesProviderFactory;
 
 @Configuration
 @Primary
-public class TopicResolver implements RetryTopicNamesProviderFactory {
+public class CustomRetryTopicProviderFactory implements RetryTopicNamesProviderFactory {
 
     @Value("${spring.kafka.topic-prefix}")
     String topicPrefix;
@@ -22,13 +22,13 @@ public class TopicResolver implements RetryTopicNamesProviderFactory {
     @Override
     public RetryTopicNamesProvider createRetryTopicNamesProvider(DestinationTopic.Properties properties) {
         this.properties = properties;
-        return new SuffixingRetryTopicNamesProvider(properties);
+        return new CustomSuffixingRetryTopicNamesProvider(properties);
     }
 
-    public class SuffixingRetryTopicNamesProvider implements RetryTopicNamesProvider {
+    public class CustomSuffixingRetryTopicNamesProvider implements RetryTopicNamesProvider {
 
         private final RetrySuffixer suffixer;
-        public SuffixingRetryTopicNamesProvider(DestinationTopic.Properties properties) {
+        public CustomSuffixingRetryTopicNamesProvider(DestinationTopic.Properties properties) {
             this.suffixer = new RetrySuffixer(topicPrefix,properties.suffix(),env);
         }
 
