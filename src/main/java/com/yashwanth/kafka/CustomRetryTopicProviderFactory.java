@@ -1,5 +1,6 @@
 package com.yashwanth.kafka;
 
+import com.yashwanth.kafka.config.RetrySuffixer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -8,7 +9,7 @@ import org.springframework.kafka.retrytopic.DestinationTopic;
 import org.springframework.kafka.retrytopic.RetryTopicNamesProviderFactory;
 
 
-@Configuration
+//@Configuration
 @Primary
 public class CustomRetryTopicProviderFactory implements RetryTopicNamesProviderFactory {
 

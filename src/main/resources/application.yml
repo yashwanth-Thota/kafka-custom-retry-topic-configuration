@@ -6,10 +6,41 @@ spring:
     consumer:
       group-id: ssa-consumer-group-local
       client-id: ssa-consumer-client
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.yashwanth.kafka
+        schema.registry.url: http://localhost:8081
+        specific:
+          avro:
+            reader: true
+    producer:
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        schema.registry.url: http://localhost:8081
+        specific:
+          avro:
+            reader: true
+      interceptor:
+        classes: com.yashwanth.kafka.CustomProducerInterceptor
     template:
       default-topic: ssa-dev
+      transaction-id-prefix: act-trans-
     bootstrap-servers: localhost:9092
+    properties:
+      schema.registry.url: http://localhost:8081
+      ssl:
+        protocol: SSL
+        keystore.location: keystore.p12
+        keystore.password: password
+        keystore.type: P12
+        truststore.location: keystore.p12
+        truststore.password: password
+        truststore.type: P12
+        key.password: password
 
 server:
-  port: 4446
+  port: 4450
 
